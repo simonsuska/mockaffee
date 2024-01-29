@@ -11,7 +11,7 @@ open class Mock {
     private final var instruction: Instruction
     private final let descriptionProvider: any DescriptionProvider
     
-    init() {
+    public init() {
         #warning("TODO: Implement")
         self.library = Library()
         self.instruction = .count
@@ -39,7 +39,20 @@ open class Mock {
         #warning("TODO: Implement")
     }
     
-    public final func notifyCalled<T>(_ fsignature: String = #function, with values: Any?...) -> T? {
+    public final func called(fsignature: String = #function, with values: Any?...) {
+        #warning("TODO: Implement")
+    }
+    
+    public final func calledReturning(fsignature: String = #function, with values: Any?...) -> Any? {
+        #warning("TODO: Implement")
+        return nil
+    }
+    
+    public final func calledThrowing(fsignature: String = #function, with values: Any?...) throws {
+        #warning("TODO: Implement")
+    }
+    
+    public final func calledThrowReturning(fsignature: String = #function, with values: Any?...) throws -> Any? {
         #warning("TODO: Implement")
         return nil
     }
