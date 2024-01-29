@@ -4,8 +4,13 @@ public func verify<T: Mock>(on mock: T, called times: Frequency, _ file: StaticS
     #warning("TODO: Implement")
     return mock
 }
-
+ 
 public func when<T: Mock>(using mock: T, thenReturn value: Any) -> T {
+    #warning("TODO: Implement")
+    return mock
+}
+
+public func when<T: Mock>(using mock: T, thenThrow error: Error) -> T {
     #warning("TODO: Implement")
     return mock
 }
