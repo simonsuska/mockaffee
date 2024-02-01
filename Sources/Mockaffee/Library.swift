@@ -4,35 +4,55 @@ final class Library {
     enum RegisterID: CaseIterable {
         case functionCallRegister
         case returnBehaviorRegister
+        case throwBehaviorRegister
         
         func initialize() -> any Register {
-            #warning("TODO: Implement")
-            return FunctionCallRegister()
+            return switch self {
+                case .functionCallRegister: FunctionCallRegister()
+                case .returnBehaviorRegister: DefaultBehaviorRegister<Any>()
+                case .throwBehaviorRegister: DefaultBehaviorRegister<Error>()
+            }
         }
     }
     
     private var registers: [RegisterID: any Register]
     
     init() {
-        #warning("TODO: Implement")
         self.registers = [:]
+        RegisterID.allCases.forEach {
+            self.registers[$0] = $0.initialize()
+        }
     }
     
     func getCount(for key: String, in registerID: RegisterID) -> UInt {
-        #warning("TODO: Implement")
-        return 0
+        guard let register = self.registers[registerID] as? any CallRegister else {
+            return 0
+        }
+        
+        return register.getCount(for: key)
     }
     
     func increase(for key: String, in registerID: RegisterID) {
-        #warning("TODO: Implement")
+        guard let register = self.registers[registerID] as? any CallRegister else {
+            return
+        }
+        
+        register.increase(for: key)
     }
     
     func getValue(for key: String, in registerID: RegisterID) -> Any? {
-        #warning("TODO: Implement")
-        return nil
+        guard let register = self.registers[registerID] as? any BehaviorRegister else {
+            return nil
+        }
+        
+        return register.fetchValue(for: key)
     }
     
-    func setValue(_ value: Any, for key: String, in registerID: RegisterID) {
-        #warning("TODO: Implement")
+    func setValue<T>(_ value: T, for key: String, in registerID: RegisterID) {
+        guard let register = self.registers[registerID] as? DefaultBehaviorRegister<T> else {
+            return
+        }
+        
+        register.record(value, for: key)
     }
 }

@@ -19,16 +19,16 @@ class TestMock: Mock {
     
     @discardableResult
     func withReturnValue<T>(_ param: T) -> T {
-        calledReturning() as? T ?? param
+        calledReturning(with: param) as? T ?? param
     }
     
     func withThrowing<T>(_ param: T) throws {
-        try calledThrowing()
+        try calledThrowing(with: param)
     }
     
     @discardableResult
     func withThrowReturning<T>(_ param: T) throws -> T {
-        try calledThrowReturning() as? T ?? param
+        try calledThrowReturning(with: param) as? T ?? param
     }
 }
 
