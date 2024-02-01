@@ -107,6 +107,16 @@ public enum Frequency {
     case lessThan(UInt)
     case exactly(UInt)
     
+    var description: String {
+        switch self {
+            case .atLeast(let times): "at least \(times)"
+            case .atMost(let times): "at most \(times)"
+            case .moreThan(let times): "more than \(times)"
+            case .lessThan(let times): "less than \(times)"
+            case .exactly(let times): "exactly \(times)"
+        }
+    }
+    
     /// This method compares the given value with the required frequency.
     ///
     /// - Parameter value: The frequency to be evaluated

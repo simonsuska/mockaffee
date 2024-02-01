@@ -1,18 +1,20 @@
 import Foundation
 
 protocol BehaviorRegister: Register {
+    associatedtype Value
+    
     func record(_ value: Value, for key: String)
+    func fetchValue(for key: String) -> Value?
 }
 
-final class ReturnBehaviorRegister: BehaviorRegister {
-    private var register: [String : Any] = [:]
+final class DefaultBehaviorRegister<Value>: BehaviorRegister {
+    private var register: [String : Value] = [:]
     
-    func record(_ value: Any, for key: String) {
-        #warning("TODO: Implement")
+    func record(_ value: Value, for key: String) {
+        self.register[key] = value
     }
     
-    func fetchValue(for key: String) -> Any? {
-        #warning("TODO: Implement")
-        return nil
+    func fetchValue(for key: String) -> Value? {
+        self.register[key]
     }
 }

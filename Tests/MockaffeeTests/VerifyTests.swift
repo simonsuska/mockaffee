@@ -137,7 +137,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(1)).withVariadicParam("A", "B", "C")
         verify(on: testMock, called: never()).withVariadicParam("A", "C", "B")
         
-        testMock.withSingleParam(["A", "B", "C"])
+        testMock.withVariadicParam("A", "B", "C")
         verify(on: testMock, called: exactly(2)).withVariadicParam("A", "B", "C")
         verify(on: testMock, called: never()).withVariadicParam("A", "C", "B")
     }
