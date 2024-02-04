@@ -1,6 +1,6 @@
 import Foundation
 
-/// A type that provides a description of a given object
+/// A type that provides a description of a given object.
 protocol DescriptionProvider {
     func description(of object: Any?) -> String
 }

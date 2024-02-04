@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 
+///
 open class Mock {
     enum Instruction {
         case count
@@ -9,15 +10,21 @@ open class Mock {
         case `throw`(Error)
     }
     
+    //: MARK: - PROPERTIES
+    
     private final let library: Library
     private final var instruction: Instruction
     private final let descriptionProvider: any DescriptionProvider
+    
+    //: MARK: - INITIALIZER
     
     public init() {
         self.library = Library()
         self.instruction = .count
         self.descriptionProvider = DefaultDescriptionProvider()
     }
+    
+    //: MARK: - METHODS
     
     private final func verify(
         _ frequency: Frequency,
@@ -38,11 +45,11 @@ open class Mock {
         self.library.increase(for: fid, in: .functionCallRegister)
     }
     
-    private final func `return`(_ value: Any, for fid: String) {
+    private final func set(_ value: Any, for fid: String) {
         self.library.setValue(value, for: fid, in: .returnBehaviorRegister)
     }
     
-    private final func `throw`(_ value: Error, for fid: String) {
+    private final func set(_ value: Error, for fid: String) {
         self.library.setValue(value, for: fid, in: .throwBehaviorRegister)
     }
     
@@ -57,73 +64,72 @@ open class Mock {
         return Data(String(fString).utf8).sha1
     }
     
+    private final func executeInstruction(for fhash: String) -> Bool {
+        switch self.instruction {
+            case .count: self.count(for: fhash)
+                         return true
+            case let .verify(frequency, file: file, line: line):
+                self.verify(frequency, for: fhash, file: file, line: line)
+            case .return(let returnValue): self.set(returnValue, for: fhash)
+            case .throw(let error): self.set(error, for: fhash)
+        }
+        
+        self.instruction = .count
+        return false
+    }
+    
     final func force(to instruction: Instruction) {
         self.instruction = instruction
     }
     
     public final func called(fsignature: String = #function, with values: Any?...) {
         let fhash = self.getFHash(from: fsignature, with: values)
-        
-        switch self.instruction {
-            case .count: self.count(for: fhash)
-            case let .verify(frequency, file: file, line: line):
-                self.verify(frequency, for: fhash, file: file, line: line)
-            case .return(let returnValue): self.return(returnValue, for: fhash)
-            case .throw(let error): self.throw(error, for: fhash)
-        }
-        
-        self.instruction = .count
+        _ = self.executeInstruction(for: fhash)
     }
     
-    public final func calledReturning(fsignature: String = #function, with values: Any?...) -> Any? {
+    public final func calledReturning(
+        fsignature: String = #function,
+        with values: Any?...
+    ) -> Any? {
         let fhash = self.getFHash(from: fsignature, with: values)
+        let isCountInstruction = self.executeInstruction(for: fhash)
         
-        switch self.instruction {
-            case .count: self.count(for: fhash)
-                         return self.library.getValue(for: fhash, in: .returnBehaviorRegister)
-            case let .verify(frequency, file: file, line: line):
-                self.verify(frequency, for: fhash, file: file, line: line)
-            case .return(let returnValue): self.return(returnValue, for: fhash)
-            case .throw(let error): self.throw(error, for: fhash)
-        }
-        
-        self.instruction = .count
-        return nil
+        return isCountInstruction
+            ? self.library.getValue(for: fhash, in: .returnBehaviorRegister)
+            : nil
     }
     
-    public final func calledThrowing(fsignature: String = #function, with values: Any?...) throws {
+    public final func calledThrowing(
+        fsignature: String = #function,
+        with values: Any?...
+    ) throws {
         let fhash = self.getFHash(from: fsignature, with: values)
+        let isCountInstruction = self.executeInstruction(for: fhash)
         
-        switch self.instruction {
-            case .count: self.count(for: fhash)
-            if let error = self.library.getValue(for: fhash, in: .throwBehaviorRegister) as? Error {
+        if isCountInstruction, 
+           let error = self.library.getValue(for: fhash,
+                                             in: .throwBehaviorRegister) as? Error {
+            throw error
+        }
+    }
+    
+    public final func calledThrowReturning(
+        fsignature: String = #function,
+        with values: Any?...
+    ) throws -> Any? {
+        let fhash = self.getFHash(from: fsignature, with: values)
+        let isCountInstruction = self.executeInstruction(for: fhash)
+        
+        if isCountInstruction {
+            if let error = self.library.getValue(for: fhash,
+                                                 in: .throwBehaviorRegister) as? Error {
                 throw error
             }
-            case let .verify(frequency, file: file, line: line):
-                self.verify(frequency, for: fhash, file: file, line: line)
-            case .return(let returnValue): self.return(returnValue, for: fhash)
-            case .throw(let error): self.throw(error, for: fhash)
-        }
-        
-        self.instruction = .count
-    }
-    
-    public final func calledThrowReturning(fsignature: String = #function, with values: Any?...) throws -> Any? {
-        let fhash = self.getFHash(from: fsignature, with: values)
-        
-        switch self.instruction {
-            case .count: self.count(for: fhash)
-            if let error = self.library.getValue(for: fhash, in: .throwBehaviorRegister) as? Error {
-                throw error
+            else {
+                return self.library.getValue(for: fhash, in: .returnBehaviorRegister)
             }
-            return self.library.getValue(for: fhash, in: .returnBehaviorRegister)
-            case let .verify(frequency, file: file, line: line):
-                self.verify(frequency, for: fhash, file: file, line: line)
-            case .return(let returnValue): self.return(returnValue, for: fhash)
-            case .throw(let error): self.throw(error, for: fhash)
         }
         
-        self.instruction = .count
         return nil
     }
 }

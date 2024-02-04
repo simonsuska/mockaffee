@@ -107,6 +107,8 @@ public enum Frequency {
     case lessThan(UInt)
     case exactly(UInt)
     
+    /// This property provides a textual representation of the condition along with the
+    /// given frequency.
     var description: String {
         switch self {
             case .atLeast(let times): "at least \(times)"
