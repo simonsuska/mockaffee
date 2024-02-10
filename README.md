@@ -10,7 +10,7 @@ It will boost your tests like a cup of coffee boosts your power of writing code 
 That's where the name *Mockaffee* comes from: It's a hybride of *Mock* and *Kaffee*, the
 German word for coffee.
 
-## Table of Contents
+## 🔎 Table of Contents
 
 - [🎯 About](#about)
 - [🚀 Getting Started](#getting_started)
