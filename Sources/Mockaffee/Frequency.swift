@@ -2,8 +2,8 @@ import Foundation
 
 /// This function creates a `Frequency.atLeast()` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function. Note that
-/// the amount of times itself is included. Consider the following examples.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function. Note
+/// that the amount of times itself is included. Consider the following examples.
 ///
 /// ```swift
 /// let frequency = atLeast(4)
@@ -13,14 +13,14 @@ import Foundation
 /// // 5 will evaluate to true, since 5 is at least 4
 /// ```
 ///
-/// - Parameter times: The smallest frequency, that is still included
+/// - Parameter times: The smallest frequency that is still included
 /// - Returns: A `Frequency.atLeast()` instance with the given amount of times
 public func atLeast(_ times: UInt) -> Frequency { Frequency.atLeast(times) }
 
 /// This function creates a `Frequency.atMost()` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function. Note that
-/// the amount of times itself is included. Consider the following examples.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function. Note
+/// that the amount of times itself is included. Consider the following examples.
 ///
 /// ```swift
 /// let frequency = atMost(4)
@@ -36,8 +36,8 @@ public func atMost(_ times: UInt) -> Frequency { Frequency.atMost(times) }
 
 /// This function creates a `Frequency.moreThan()` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function. Note that
-/// the amount of times itself is not included. Consider the following examples.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function. Note
+/// that the amount of times itself is not included. Consider the following examples.
 ///
 /// ```swift
 /// let frequency = moreThan(4)
@@ -53,8 +53,8 @@ public func moreThan(_ times: UInt) -> Frequency { Frequency.moreThan(times) }
 
 /// This function creates a `Frequency.lessThan()` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function. Note that
-/// the amount of times itself is not included. Consider the following examples.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function. Note
+/// that the amount of times itself is not included. Consider the following examples.
 ///
 /// ```swift
 /// let frequency = lessThan(4)
@@ -70,7 +70,7 @@ public func lessThan(_ times: UInt) -> Frequency { Frequency.lessThan(times) }
 
 /// This function creates a `Frequency.exactly()` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function.
 /// Consider the following examples.
 ///
 /// ```swift
@@ -87,7 +87,7 @@ public func exactly(_ times: UInt) -> Frequency { Frequency.exactly(times) }
 
 /// This function creates a `Frequency.exactly(0)` instance with the given amount of times.
 ///
-/// It is intended to be used together with the `verify(on:called:)` function.
+/// It is intended to be used together with the `verify(on:called:_:_:)` function.
 ///
 /// - Returns: A `Frequency.exactly(0)` instance with the given amount of times
 public func never() -> Frequency { Frequency.exactly(0) }

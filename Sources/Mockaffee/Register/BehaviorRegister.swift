@@ -1,6 +1,6 @@
 import Foundation
 
-/// A type that keeps book about the deposited behaviors
+/// A type that keeps book about the recorded behaviors.
 protocol BehaviorRegister: Register {
     associatedtype Value
     
@@ -12,7 +12,7 @@ protocol BehaviorRegister: Register {
 final class DefaultBehaviorRegister<Value>: BehaviorRegister {
     private var register: [String : Value] = [:]
     
-    /// This method records a new behavior
+    /// This method records a new behavior.
     ///
     /// In the context of the Mockaffee package, the key is equal to the unique
     /// representation of a function call provided by the underlying `DescriptionProvider`.
@@ -24,7 +24,7 @@ final class DefaultBehaviorRegister<Value>: BehaviorRegister {
         self.register[key] = value
     }
     
-    /// This method fetches the recorded behavior for the given key
+    /// This method fetches the recorded behavior for the given key.
     ///
     /// In the context of the Mockaffee package, the key is equal to the unique
     /// representation of a function call provided by the underlying `DescriptionProvider`.

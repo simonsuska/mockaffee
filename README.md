@@ -28,8 +28,8 @@ functionality for unit tests in Swift, including:
 
 - Creating a mock
 - Verify function calls
-- Register custom return behaviors
-- Register custom errors to be thrown
+- Record custom return behaviors
+- Record custom errors to be thrown
 
 <div id="getting_started"/>
 
@@ -62,10 +62,10 @@ class EnrollmentTests: XCTestCase {
         
         enrollment.matriculate(studentID: 033174, name: "John Doe")
         
-        // Register custom return-behaviors
+        // Record custom return behavior
         when(using: dbConnMock, thenReturn: "").select("*", from: "students", where: "id = 033174")
         
-        // Register custom throw-behaviors
+        // Record custom throw behavior
         try when(using: dbConnMock, thenThrow: DatabaseError.reconnection).reconnect()
         
         // Verify function calls
@@ -80,7 +80,7 @@ class EnrollmentTests: XCTestCase {
 ### In Detail
 
 To create a mock, simply inherit from the `Mock` class. Subsequently you can implement the
-methods. To be able to verify certain function calls and make use of registered behaviors,
+methods. To be able to verify certain function calls and make use of recorded behaviors,
 you have to call exactly one of the following methods in your method properly.
 
 - `called(fsignature:with:)`
@@ -108,8 +108,8 @@ class DatabaseConnectionMock: Mock, DatabaseConnection {
     
     @discardableResult
     func select(_ content: String, from table: String, where condition: String) -> String {
-        // "" is the default return-value
-        calledReturning(with: content, table, content) as? String ?? ""
+        // "" is the default return value
+        calledReturning(with: content, table, condition) as? String ?? ""
     }
     
     func delete(from table: String, where condition: String) {
@@ -122,7 +122,7 @@ class DatabaseConnectionMock: Mock, DatabaseConnection {
 }
 ```
 
-After creating a mock properly, you are able to verify function calls and register
+After creating a mock properly, you are able to verify function calls and record
 custom behaviors. The following struct is used to enroll students in a university. For 
 this purpose, a database connection is injected.
 
@@ -147,7 +147,7 @@ struct Enrollment {
 **Verify**
 
 To verify that the `matriculate(studentID:name:)` method behaves properly and calls the 
-underlying methods accordingly, you can use the `verify(on:called:)` function.
+underlying methods accordingly, you can use the `verify(on:called:_:_:)` function.
 
 ```swift
 // Verifies that `connect()` has been called exactly once on `dbConnMock`
@@ -167,13 +167,13 @@ try verify(on: dbConnMock, called: atLeast(1)).close()
 
 **When**
 
-To register a custom return-behavior, let's say for the `select(_:from:where:)`
+To record a custom return behavior, let's say for the `select(_:from:where:)`
 method, you can use the `when(using:thenReturn:)` function.
 
 ```swift
 // The call `dbConnMock.select("*", from: "students", where: "id = 033174")` will return 
 // an empty string. Note that any other call of the `select(_:from:where:)` method on the 
-`dbConnMock` object will return the specified default value. The specified parameters are relevant.
+// `dbConnMock` object will return the specified default value. The specified parameters are relevant.
 when(using: dbConnMock, thenReturn: "").select("*", from: "students", where: "id = 033174")
 ```
 
@@ -182,7 +182,7 @@ the `when(using:thenThrow:)` function.
 
 ```swift
 // The call `dbConnMock.reconnect()` will throw a `DatabaseError.reconnection` error.
-// Again, the specified parameters are relevant.
+// Again, the specified parameters are relevant in general.
 when(using: dbConnMock, thenThrow: DatabaseError.reconnection).reconnect()
 ```
 
@@ -196,7 +196,7 @@ currently not covered and may result in an undefined behavior.
 1. Verifying overloading functions with an array-typed and variadic parameter
 
     ```swift
-    // Currently, the verify(on:called:) function can not distinguish between the following 
+    // Currently, the verify(on:called:_:_:) function can not distinguish between the following 
     // two functions  
     
     func foo<T>(param: T...) {}
@@ -205,7 +205,7 @@ currently not covered and may result in an undefined behavior.
     
 2. Verifying a collection of complex types, e.g. an array of classes or a set of structs
 
-3. Verifying a complex type containing a property of an complex type
+3. Verifying a complex type containing a property of a complex type
 
     ```swift
     struct SomeStruct {}
@@ -223,4 +223,4 @@ currently not covered and may result in an undefined behavior.
 
 ## ⚖️ License
 
-Mockaffee is released under the GNU GPL 3.0 license. See [LICENSE](LICENSE) for details.
+Mockaffee is released under the GNU GPL-3.0 license. See [LICENSE](LICENSE) for details.

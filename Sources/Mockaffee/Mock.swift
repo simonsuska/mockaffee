@@ -15,7 +15,7 @@ import XCTest
 /// }
 /// ```
 ///
-/// To be able to verify certain function calls and make use of registered behaviors,
+/// To be able to verify certain function calls and make use of recorded behaviors,
 /// you have to call exactly one of the following methods in your method properly.
 ///
 /// - `called(fsignature:with:)`
@@ -54,7 +54,7 @@ open class Mock {
     /// using an `XCTAssert`.
     ///
     /// This method will be executed when the instruction has previously been set to
-    /// `.verify` by the `verify(on:called:)` function.
+    /// `.verify` by the `verify(on:called:_:_:)` function.
     ///
     /// - Parameters:
     ///     * frequency: The frequency to be evaluated
@@ -85,7 +85,7 @@ open class Mock {
     /// `.count`. This is the default when none of the following functions have been
     /// called immediately before:
     ///
-    /// - `verify(on:called:)`
+    /// - `verify(on:called:_:_:)`
     /// - `when(using:thenReturn:)`
     /// - `when(using:thenThrow:)`
     ///
@@ -160,7 +160,7 @@ open class Mock {
     ///
     /// It is usually called by one of the following functions:
     ///
-    /// - `verify(on:called:)`
+    /// - `verify(on:called:_:_:)`
     /// - `when(using:thenReturn:)`
     /// - `when(using:thenThrow:)`
     ///
@@ -211,7 +211,7 @@ open class Mock {
     /// If this method is called in conjunction with any of the following functions, it
     /// returns `nil`, regardless of what is specified:
     ///
-    /// - `verify(on:called:)`
+    /// - `verify(on:called:_:_:)`
     /// - `when(using:thenReturn:)`
     /// - `when(using:thenThrow:)`
     ///
@@ -219,11 +219,11 @@ open class Mock {
     ///
     /// Call this method within a non-throwing, non-void-returning method of your mock to
     /// track each method call. The result of this method call must be returned from your
-    /// method in order to make use of the registered return-behavior.
+    /// method in order to make use of the registered return behavior.
     ///
-    /// Additionally, you have to provide a default return-value which will be used if no
-    /// return-behavior is registered or the registered return-behavior is invalid. Since
-    /// this method returns `nil` in such cases, simply add the default return-value
+    /// Additionally, you have to provide a default return value which will be used if no
+    /// return behavior is registered or the registered return behavior is invalid. Since
+    /// this method returns `nil` in such cases, simply add the default return value
     /// behind the nil coalescing operator (`??`).
     ///
     /// ```swift
@@ -273,7 +273,7 @@ open class Mock {
     /// If this method is called in conjunction with any of the following functions, it
     /// throws nothing, regardless of what is specified:
     ///
-    /// - `verify(on:called:)`
+    /// - `verify(on:called:_:_:)`
     /// - `when(using:thenReturn:)`
     /// - `when(using:thenThrow:)`
     ///
@@ -328,7 +328,7 @@ open class Mock {
     /// If this method is called in conjunction with any of the following functions, it
     /// returns `nil` and throws nothing, regardless of what is specified:
     ///
-    /// - `verify(on:called:)`
+    /// - `verify(on:called:_:_:)`
     /// - `when(using:thenReturn:)`
     /// - `when(using:thenThrow:)`
     ///
@@ -336,11 +336,11 @@ open class Mock {
     ///
     /// Call this method within a throwing, non-void-returning method of your mock to
     /// track each method call. The result of this method call must be returned from your
-    /// method in order to make use of the registered return-behavior.
+    /// method in order to make use of the registered return behavior.
     ///
-    /// Additionally, you have to provide a default return-value which will be used if no
-    /// return-behavior is registered or the registered return-behavior is invalid. Since
-    /// this method returns `nil` in such cases, simply add the default return-value
+    /// Additionally, you have to provide a default return value which will be used if no
+    /// return behavior is registered or the registered return behavior is invalid. Since
+    /// this method returns `nil` in such cases, simply add the default return value
     /// behind the nil coalescing operator (`??`).
     ///
     /// ```swift
