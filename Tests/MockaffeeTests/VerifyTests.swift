@@ -8,7 +8,7 @@ final class VerifyTests: XCTestCase {
         self.testMock = TestMock()
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods without parameters.
     func testVerifyWithoutParams() {
         verify(on: testMock, called: never()).withoutParams()
@@ -20,7 +20,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withoutParams()
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function behaves properly
+    /// This test evaluates whether the `verify(on:called:_:_:)` function behaves properly
     /// for methods with a primitive value-typed parameter, e.g. Int, Double, Float.
     func testVerifyWithPrimitiveParam() {
         verify(on: testMock, called: never()).withSingleParam(17.4)
@@ -32,7 +32,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withSingleParam(17.4)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function behaves properly
+    /// This test evaluates whether the `verify(on:called:_:_:)` function behaves properly
     /// for methods with an ordered value-typed parameter, e.g. Array and Tuple.
     func testVerifyWithOrderedParam() {
         verify(on: testMock, called: never()).withSingleParam(["A", "B", "C"])
@@ -44,7 +44,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withSingleParam(["A", "B", "C"])
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with a parameter of type Set.
     func testVerifyWithSetParam() {
         let testSet: Set<String> = ["A", "B", "C"]
@@ -62,7 +62,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withSingleParam(anotherTestSet)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with a parameter of type Dictionary.
     func testVerifyWithDictionaryParam() {
         let testDict = [1: "A", 2: "B", 3: "C"]
@@ -80,7 +80,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withSingleParam(anotherTestDict)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function behaves properly
+    /// This test evaluates whether the `verify(on:called:_:_:)` function behaves properly
     /// for methods with a parameter of an enum, especially custom ones.
     func testVerifyWithEnumParam() {
         verify(on: testMock, called: never()).withSingleParam(TestEnum.firstValue)
@@ -98,7 +98,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: never()).withSingleParam(TestEnum.secondValue(2))
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function behaves properly
+    /// This test evaluates whether the `verify(on:called:_:_:)` function behaves properly
     /// for methods with a parameter of a struct, especially custom ones.
     func testVerifyWithStructParam() {
         verify(on: testMock, called: never()).withSingleParam(TestStruct(value: 17.4))
@@ -110,7 +110,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withSingleParam(TestStruct(value: 17.4))
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with a reference-typed parameter.
     func testVerifyWithReferenceTypedParam() {
         let testClass = TestClass(value: 17.4)
@@ -128,7 +128,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(1)).withSingleParam(anotherTestClass)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with a variadic parameter.
     func testVerifyWithVariadicParam() {
         verify(on: testMock, called: never()).withVariadicParam("A", "B", "C")
@@ -142,7 +142,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: never()).withVariadicParam("A", "C", "B")
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with multiple parameters.
     func testVerifyWithMultipleParams() {
         verify(on: testMock, called: never()).withMultipleParams(17.4, "A")
@@ -156,7 +156,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: never()).withMultipleParams("A", 17.4)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function behaves 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function behaves
     /// properly for methods with equal parameter values of different types.
     func testVerifyWithEqualNumbers() {
         verify(on: testMock, called: never()).withSingleParam(Float(1.74))
@@ -171,7 +171,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(1)).withSingleParam(1.74)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for methods with a return value.
     func testVerifyReturning() {
         verify(on: testMock, called: never()).withReturnValue(174)
@@ -183,7 +183,7 @@ final class VerifyTests: XCTestCase {
         verify(on: testMock, called: exactly(2)).withReturnValue(174)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function
     /// behaves properly for throwing methods.
     func testVerifyThrowing() throws {
         try verify(on: testMock, called: never()).withThrowing(17.4)
@@ -195,7 +195,7 @@ final class VerifyTests: XCTestCase {
         try verify(on: testMock, called: exactly(2)).withThrowing(17.4)
     }
     
-    /// This test evaluates whether the `verify(on:called:)` function 
+    /// This test evaluates whether the `verify(on:called:_:_:)` function 
     /// behaves properly for throwing methods with a return value.
     func testVerifyThrowReturning() throws {
         try verify(on: testMock, called: never()).withThrowReturning(17.4)

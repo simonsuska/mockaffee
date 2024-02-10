@@ -7,7 +7,7 @@ import Foundation
 /// parameter determines whether two function calls are regarded equal or not.
 ///
 /// The following examples provide an overview of the behavior of the
-/// `verify(on:called:)` function with different kinds of parameters.
+/// `verify(on:called:_:_:)` function with different kinds of parameters.
 ///
 /// **General behavior**
 ///
@@ -86,7 +86,7 @@ import Foundation
 ///              mock object
 ///     * file: The file path in which the verification has been initiated. **Do not
 ///             assign this parameter manually, it is determined automatically.**
-///     * line: The line number in which the verification has been initiated **Do not
+///     * line: The line number in which the verification has been initiated. **Do not
 ///             assign this parameter manually, it is determined automatically.**
 /// - Returns: The mock object itself
 public func verify<T: Mock>(
