@@ -38,10 +38,10 @@ functionality for unit tests in Swift, including:
 To get started, add a dependency to your project in Xcode. You may proceed as follows\*:
 
 1. Fork or clone this repository
-2. From the menu bar, choose *File* &#8594; *Add Package Dependencies...*
+2. From the menu bar in Xcode, choose *File* &#8594; *Add Package Dependencies...*
 3. A dialog opens where you can add the dependency
     - If you forked this repository, you can add a dependency to the repository on your 
-      Github account
+      Github account by pasting the URL of the repository into the search bar in Xcode.
     - If you cloned this repository, you can add a dependency to the repository on your
       machine by choosing *Add Local...*
 4. Add the package dependency to the test target
@@ -56,10 +56,14 @@ To get started, add a dependency to your project in Xcode. You may proceed as fo
 
 ```swift
 class EnrollmentTests: XCTestCase {
+    private var enrollment: Enrollment!
+    private var dbConnMock = DatabaseConnectionMock()
+    
+    override func setUp() {
+        enrollment = Enrollment(dbConn: dbConnMock)
+    }
+
     func testMatriculate() throws {
-        let dbConnMock = DatabaseConnectionMock()
-        let enrollment = Enrollment(dbConn: dbConnMock)
-        
         enrollment.matriculate(studentID: 033174, name: "John Doe")
         
         // Record custom return behavior
