@@ -37,14 +37,33 @@ functionality for unit tests in Swift, including:
 
 To get started, add a dependency to your project in Xcode. You may proceed as follows\*:
 
-1. Fork or clone this repository
-2. From the menu bar in Xcode, choose *File* &#8594; *Add Package Dependencies...*
-3. A dialog opens where you can add the dependency
-    - If you forked this repository, you can add a dependency to the repository on your 
-      Github account by pasting the URL of the repository into the search bar in Xcode.
-    - If you cloned this repository, you can add a dependency to the repository on your
-      machine by choosing *Add Local...*
-4. Add the package dependency to the test target
+#### If you want to add a dependency to a Xcode project
+
+1. From the menu bar in Xcode, choose *File* &#8594; *Add Package Dependencies...*
+2. A dialog opens where you can add the dependency by pasting the URL of the repository 
+   into the search bar in Xcode. \
+   If you cloned this repository, you can add a dependency to the repository on your
+   machine by choosing *Add Local...*
+3. Add the package dependency to the test target
+
+#### If you want to add a dependency to another Swift package
+
+Customize your `Package.swift` file according to the following code.
+You may specify a version number instead of a branch.
+
+```swift
+let package = Package(
+    name: "SomeSwiftPackage",
+    dependencies: [
+        .package(url: "https://github.com/simonsuska/mockaffee.git", branch: "main")
+    ],
+    targets: [
+        .testTarget(
+            name: "SomeSwiftPackageTests",
+            dependencies: ["Mockaffee"]),
+    ]
+)
+```
 
 \*Done with Xcode Version 15.0
 
