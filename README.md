@@ -1,14 +1,14 @@
-<p align="center">
-  <img src="Mockaffee.svg" alt="Mockaffee" width="176">  
-</p>
+<div align="center">
+  <img src="Mockaffee.svg" alt="Mockaffee" width="168"><br><br>
 
-# ☕️ Mockaffee
+  **Mockaffee** is a lightweight mocking library for unit tests in Swift.
 
-**Mockaffee** is a lightweight mocking library for unit tests in Swift.
+  [![GitHub Release](https://img.shields.io/github/v/release/simonsuska/Mockaffee?color=F05138)](https://github.com/simonsuska/mockaffee/releases)
+  [![Static Badge](https://img.shields.io/badge/swift-5.9-important?style=flat&color=F05138)](https://swift.org)
+  [![GitHub License](https://img.shields.io/github/license/simonsuska/Mockaffee)](https://github.com/simonsuska/mockaffee/blob/main/LICENSE)
+</div>
 
-It will boost your tests like a cup of coffee boosts your power of writing code 😁!
-That's where the name *Mockaffee* comes from: It's a hybride of *Mock* and *Kaffee*, the
-German word for coffee.
+---
 
 ## 🔎 Table of Contents
 
@@ -21,6 +21,10 @@ German word for coffee.
 <div id="about"/>
 
 ## 🎯 About
+
+Mockaffee will boost your tests like a cup of coffee boosts your power of writing code 😁!
+That's where the name *Mockaffee* comes from: It's a hybride of *Mock* and *Kaffee*, the
+German word for coffee.
 
 The API of this library is partly inspired by [Mockito](https://github.com/mockito/mockito), 
 a popular mocking framework for unit tests in Java. Mockaffee provides a subset of those
