@@ -59,12 +59,12 @@ You may specify a version number instead of a branch.
 let package = Package(
     name: "SomeSwiftPackage",
     dependencies: [
-        .package(url: "https://github.com/simonsuska/mockaffee.git", branch: "main")
+        .package(url: "https://github.com/simonsuska/mockaffee.git", from: "1.0.0")
     ],
     targets: [
         .testTarget(
             name: "SomeSwiftPackageTests",
-            dependencies: ["Mockaffee"]),
+            dependencies: [.product(name: "Mockaffee", package: "mockaffee")]),
     ]
 )
 ```
