@@ -54,10 +54,12 @@ struct DefaultDescriptionProvider: DescriptionProvider {
         // beforehand to guarantee consistency.
         var description = switch displayStyle {
             case .class: String(UInt(bitPattern: ObjectIdentifier(object as AnyObject)))
+            
             case .set: String(describing: (object as! Set<AnyHashable>)
-                .sorted { $0.hashValue < $1.hashValue })
+                .sorted { $0.description < $1.description })
+            
             case .dictionary: String(describing: (object as! Dictionary<AnyHashable, Any>)
-                .sorted { $0.key.hashValue < $1.key.hashValue })
+                .sorted { $0.key.description < $1.key.description })
             default: String(describing: object)
         }
         

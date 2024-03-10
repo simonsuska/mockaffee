@@ -1,7 +1,7 @@
 import XCTest
 @testable import Mockaffee
 
-final class VerifyTests: XCTestCase {
+final class VerifyOnTests: XCTestCase {
     private var testMock: TestMock!
     
     override func setUp() {
