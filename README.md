@@ -16,6 +16,7 @@
 - [🚀 Getting Started](#getting_started)
 - [💫 Usage](#usage)
 - [🚫 Limitations](#limitations)
+- [🧱 UML Class Diagram](#uml_cd)
 - [⚖️ License](#license)
 
 <div id="about"/>
@@ -34,6 +35,9 @@ functionality for unit tests in Swift, including:
 - Verify function calls
 - Record custom return behaviors
 - Record custom errors to be thrown
+
+This project uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
+since June 5, 2025.
 
 <div id="getting_started"/>
 
@@ -245,6 +249,12 @@ currently not covered and may result in an undefined behavior.
         }
     }
     ```
+
+<div id="uml_cd"/>
+
+## 🧱 UML Class Diagram
+
+![UML Class Diagram](Mockaffee_UML_CD.svg)
 
 <div id="license"/>
 
